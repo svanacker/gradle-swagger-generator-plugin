@@ -17,6 +17,11 @@ gradlePlugin {
     pluginSourceSet parent.sourceSets.main
 }
 
+test {
+    // Prevent OutOfMemoryError on CI
+    jvmArgs '-Xmx256m'
+}
+
 file('examples/settings.gradle').eachLine { line ->
     def m = (line =~ /include '(.+?)'/)
     if (m) {
